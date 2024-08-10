@@ -11,6 +11,11 @@ class BaseButtonsTexts:
     register = 'Регистрация'
 
 
+class CreateEditDeleteAddButtonsTexts:
+    create = 'Создать'
+    delete = 'Удалить'
+
+
 class MenuKeyboardTexts:
     start = '/start'
     menu = '/menu'
@@ -25,7 +30,7 @@ class MainMenuButtonsTexts:
 class ProfileButtonsTexts:
     edit_profile = 'Редактировать профиль'
     delete_profile = 'Удалить профиль'
-    my_team = 'Моя команда'
+    user_teams = 'Мои команды'
 
 
 class EditProfileButtonsTexts:
@@ -37,3 +42,11 @@ class EditProfileButtonsTexts:
         self.edit_photo = 'Фото'
         self.edit_age = 'Возраст'
         self.edit_languages = 'Языки программирования'
+
+
+class ViewTeamButtonsTexts:
+    edit = 'Редактировать'
+    remove = 'Исключить'
+    add = 'Добавить'
+    invite = 'Пригласить по ссылке'
+    users = 'Участники'

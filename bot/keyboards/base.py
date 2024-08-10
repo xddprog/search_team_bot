@@ -29,9 +29,17 @@ class BaseKeyboard:
         )
 
     @classmethod
+    def back_and_done(cls) -> Button:
+        return Button(
+            id='back_to_teams',
+            text=Const(BackButtonsTexts.back),
+            on_click=cls._handle_back_and_done_button
+        )
+
+    @classmethod
     def back(cls) -> Button:
         return Button(
-            id='go_to_back',
+            id='back_to_teams',
             text=Const(BackButtonsTexts.back),
             on_click=cls._handle_back_button
         )
@@ -60,10 +68,18 @@ class BaseKeyboard:
             dialog_manager.dialog_data[field_name].append(field_value)
 
     @staticmethod
-    async def _handle_back_button(
+    async def _handle_back_and_done_button(
         callback: CallbackQuery,
         checkbox: ManagedCheckbox,
         dialog_manager: DialogManager
+    ) -> None:
+        await dialog_manager.done()
+
+    @staticmethod
+    async def _handle_back_button(
+            callback: CallbackQuery,
+            checkbox: ManagedCheckbox,
+            dialog_manager: DialogManager
     ) -> None:
         await dialog_manager.back()
 

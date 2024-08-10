@@ -1,11 +1,8 @@
-from aiogram.enums import ContentType
 from aiogram.types import User
 from aiogram_dialog import DialogManager
-from aiogram_dialog.api.entities import Context, MediaAttachment, MediaId
 
 from database.db_main import Database
-from lexicon.buttons import EditProfileButtonsTexts
-from lexicon.texts import EditProfileTexts, BaseProfileInputTexts, ProfileItemsTexts
+from lexicon.texts import ProfileItemsTexts
 
 
 async def get_user_profile(

@@ -6,6 +6,7 @@ from aiogram_dialog.widgets.kbd import Button
 from database.db_main import Database
 from states.profile import EditProfileStates, ProfileStates, DeleteProfileStates
 from states.register import RegisterStates
+from states.teams import UserTeamsStates
 
 
 async def go_to_edit_profile(
@@ -22,6 +23,14 @@ async def go_to_delete_profile(
     dialog_manager: DialogManager
 ) -> None:
     await dialog_manager.start(state=DeleteProfileStates.delete)
+
+
+async def go_to_user_teams(
+    callback: CallbackQuery,
+    button: Button,
+    dialog_manager: DialogManager
+) -> None:
+    await dialog_manager.start(state=UserTeamsStates.teams)
 
 
 async def correct_input_handler(
@@ -112,3 +121,11 @@ async def go_to_register(
     dialog_manager: DialogManager
 ) -> None:
     await dialog_manager.start(RegisterStates.username, mode=StartMode.RESET_STACK)
+
+
+async def go_back_to_profile(
+    callback: CallbackQuery,
+    button: Button,
+    dialog_manager: DialogManager
+) -> None:
+    await dialog_manager.done()

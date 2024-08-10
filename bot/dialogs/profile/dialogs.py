@@ -5,17 +5,18 @@ from aiogram_dialog.widgets.kbd import Button, Row, Column
 from aiogram_dialog.widgets.media import DynamicMedia
 from aiogram_dialog.widgets.text import Format, Const
 
-from filters.dialog_filters import username_filter, age_filter, city_filter, description_filter
+from filters.register_filters import username_filter, age_filter, city_filter, description_filter
 from keyboards.base import BaseKeyboard
 from utils.enums import Languages
 from .getters import get_user_profile, get_editable_data
 from states.profile import ProfileStates, EditProfileStates, DeleteProfileStates
 from lexicon.texts import ProfileTexts, EditProfileTexts, DeleteProfileTexts
-from lexicon.buttons import ProfileButtonsTexts, EditProfileButtonsTexts, BaseButtonsTexts
+from lexicon.buttons import ProfileButtonsTexts, EditProfileButtonsTexts, BaseButtonsTexts, BackButtonsTexts
 from .handlers import (
     go_to_edit_profile, set_editable_item,
     correct_input_handler, invalid_input_handler,
-    set_sex, set_photo, set_languages, save_editable_data, delete_profile, go_to_register, go_to_delete_profile
+    set_sex, set_photo, set_languages, save_editable_data, delete_profile, go_to_register, go_to_delete_profile,
+    go_to_user_teams, go_back_to_profile
 )
 
 main_profile_dialog = Dialog(
@@ -34,9 +35,11 @@ main_profile_dialog = Dialog(
                 on_click=go_to_delete_profile
             ),
             Button(
-                id='my_team',
-                text=Const(ProfileButtonsTexts.my_team),
+                id='teams',
+                text=Const(ProfileButtonsTexts.user_teams),
+                on_click=go_to_user_teams
             ),
+            BaseKeyboard.back_to_menu()
         ),
         state=ProfileStates.profile,
         getter=get_user_profile
@@ -57,7 +60,12 @@ edit_profile_dialog = Dialog(
                 text=Const(BaseButtonsTexts.save),
                 on_click=save_editable_data,
                 when='editable_data',
-            )
+            ),
+            Button(
+                id='back_to_profile',
+                text=Const(BackButtonsTexts.back),
+                on_click=go_back_to_profile
+            ),
         ),
         state=EditProfileStates.main,
         getter=get_editable_data
@@ -108,9 +116,9 @@ edit_profile_dialog = Dialog(
         state=EditProfileStates.edit_languages,
     ),
     Window(
-        Const(EditProfileTexts.description),
+        Const(EditProfileTexts.user_description),
         TextInput(
-            id='description',
+            id='user_description',
             on_success=correct_input_handler,
             on_error=invalid_input_handler,
             type_factory=description_filter
@@ -137,7 +145,11 @@ delete_profile_dialog = Dialog(
                 text=Const(BaseButtonsTexts.yes),
                 on_click=delete_profile
             ),
-            BaseKeyboard.back_to_menu(),
+            Button(
+                id='back_to_profile',
+                text=Const(BackButtonsTexts.back),
+                on_click=go_back_to_profile
+            ),
         ),
         state=DeleteProfileStates.delete
     ),

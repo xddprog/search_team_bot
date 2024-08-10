@@ -33,7 +33,11 @@ async def main():
         dialogs.menu_dialog,
         dialogs.main_profile_dialog,
         dialogs.edit_profile_dialog,
-        dialogs.delete_profile_dialog
+        dialogs.delete_profile_dialog,
+        dialogs.user_teams_dialog,
+        dialogs.create_team_dialog,
+        dialogs.view_team_dialog,
+        dialogs.accept_invite_to_team_dialog
     )
 
     dp.update.middleware(DatabaseMiddleware(db_connection=db_connection))

@@ -5,10 +5,9 @@ from pydantic import UUID4
 from sqlalchemy import select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from database.models import UserModel
+from database.models import UserModel, TeamModel
 
-
-SqlalchemyModel = Type[UserModel]
+SqlalchemyModel = Type[UserModel | TeamModel]
 
 
 class BaseRepository(ABC):

@@ -1,17 +1,16 @@
 from aiogram.enums import ContentType
 from aiogram_dialog import Dialog, Window
 from aiogram_dialog.widgets.input import TextInput, MessageInput
-from aiogram_dialog.widgets.kbd import Select, Checkbox, Row, Button
+from aiogram_dialog.widgets.kbd import Button
 from aiogram_dialog.widgets.media import DynamicMedia
 from aiogram_dialog.widgets.text import Const, Format
 
-from dialogs.register.getters import get_user_register_fields
-from dialogs.register.handlers import correct_input_handler, invalid_input_handler, set_sex, set_languages, set_photo
-from filters.dialog_filters import age_filter, username_filter, description_filter, city_filter
+from .getters import get_user_register_fields
+from .handlers import correct_input_handler, invalid_input_handler, set_sex, set_languages, set_photo
+from filters.register_filters import age_filter, username_filter, description_filter, city_filter
 from keyboards.base import BaseKeyboard
 from lexicon.buttons import BaseButtonsTexts
-from lexicon.texts import StartDialogTexts as Texts, ProfileTexts
-from lexicon.errors import RegisterDialogErrors as Errors
+from lexicon.texts import StartDialogTexts as Texts
 from states.register import RegisterStates
 from utils.enums import Languages
 
@@ -62,9 +61,9 @@ register_dialog = Dialog(
         state=RegisterStates.languages,
     ),
     Window(
-        Const(Texts.description),
+        Const(Texts.user_description),
         TextInput(
-            id='description',
+            id='user_description',
             on_success=correct_input_handler,
             on_error=invalid_input_handler,
             type_factory=description_filter

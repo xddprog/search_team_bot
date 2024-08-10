@@ -1,18 +1,15 @@
-from pprint import pprint
-
-from aiogram import Router
-from aiogram.enums import ContentType
-from aiogram.filters import CommandStart
+from aiogram.filters import CommandStart, CommandObject
 from aiogram.types import Message, CallbackQuery
+from aiogram.utils.payload import decode_payload
 from aiogram_dialog import DialogManager, StartMode, ShowMode
-from aiogram_dialog.api.entities import MediaAttachment, MediaId
 from aiogram_dialog.widgets.input import ManagedTextInput
-from aiogram_dialog.widgets.kbd import Button, ManagedCheckbox
+from aiogram_dialog.widgets.kbd import Button
 
 from database.db_main import Database
 from dialogs.router import router
 from states.menu import MenuStates
 from states.register import RegisterStates
+from states.teams import AcceptInviteToTeamStates
 
 
 async def correct_input_handler(
@@ -71,11 +68,35 @@ async def set_photo(
     await dialog_manager.next()
 
 
-@router.message(CommandStart())
+@router.message(CommandStart(deep_link=True))
+async def user_accept_invite_to_team(
+    message: Message,
+    command: CommandObject,
+    dialog_manager: DialogManager,
+    database: Database
+):
+    payload = decode_payload(command.args).split('_')
+    team_id, team_name = int(payload[-2]), payload[-1]
+
+    user = await database.users.get_item(message.from_user.id)
+    team = await database.teams.get_item(team_id)
+
+    if user and len(user.teams) != 10 and user not in team.users:
+        await dialog_manager.start(
+            state=AcceptInviteToTeamStates.invite,
+            mode=StartMode.RESET_STACK,
+            data={'team_id': team_id, 'team_name': team_name}
+        )
+    elif len(user.teams) == 10 or user in team.users:
+        await dialog_manager.start(state=AcceptInviteToTeamStates.accept_invite_error, mode=StartMode.RESET_STACK)
+    else:
+        await dialog_manager.start(state=RegisterStates.username, mode=StartMode.RESET_STACK)
+
+
+@router.message(CommandStart(deep_link=False))
 async def command_start_process(message: Message, dialog_manager: DialogManager, database: Database):
     user = await database.users.get_item(message.from_user.id)
     if user:
-        # await dialog_manager.start(state=RegisterStates.error, mode=StartMode.RESET_STACK)
         await dialog_manager.start(state=MenuStates.main, mode=StartMode.RESET_STACK)
     else:
         await dialog_manager.start(state=RegisterStates.username, mode=StartMode.RESET_STACK)
