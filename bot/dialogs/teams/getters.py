@@ -4,6 +4,7 @@ from aiogram_dialog import DialogManager
 from aiogram_dialog.api.entities import Context, MediaAttachment, MediaId
 
 from database.db_main import Database
+from lexicon.texts import ProfileAndTeamItemsTexts
 
 
 async def get_user_teams(
@@ -49,6 +50,10 @@ async def get_team_info(
 
     team['user_is_admin'] = event_from_user.id in team['admins']
     team['user_is_not_admin'] = event_from_user.id not in team['admins']
+    team['users'] = team['users'].remove(event_from_user.id)
+
+    dialog_manager.dialog_data['users'] = team['users']
+    dialog_manager.dialog_data['admins'] = team['admins']
 
     return team
 
@@ -68,3 +73,44 @@ async def get_team_info_from_invite_link(
     **kwargs
 ) -> dict:
     return dialog_manager.start_data
+
+
+async def get_editable_data(
+    dialog_manager: DialogManager,
+    **kwargs
+) -> dict:
+    editable_data = [
+        f'<b>{ProfileAndTeamItemsTexts.__dict__[key]}</b>: {value}'
+        for key, value in dialog_manager.dialog_data.items()
+    ]
+
+    return {
+        'editable_data': ',\n'.join(editable_data)
+    }
+
+
+async def get_team_users(
+    dialog_manager: DialogManager,
+    **kwargs
+) -> dict:
+    users = dialog_manager.dialog_data.get('users')
+
+    return {
+        'users': users,
+        'team_users_number': len(users)
+    }
+
+
+async def get_selected_user_info(
+    dialog_manager: DialogManager,
+    **kwargs
+) -> dict:
+    database: Database = dialog_manager.middleware_data.get('database')
+    selected_user_info_id = dialog_manager.start_data.get('selected_team_user')[0]
+    team_admins = dialog_manager.start_data.get('admins')
+
+    selected_user_info = await database.users.get_item(selected_user_info_id)
+    selected_user_info = await selected_user_info.to_dict()
+    selected_user_info['user_is_admin'] = selected_user_info_id in team_admins
+
+    return selected_user_info

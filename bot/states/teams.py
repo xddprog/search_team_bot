@@ -16,6 +16,11 @@ class CreateTeamStates(StatesGroup):
 class ViewTeamStates(StatesGroup):
     team = State()
     invite = State()
+    users = State()
+
+
+class ViewTeamUserStates(StatesGroup):
+    view_user = State()
 
 
 class AcceptInviteToTeamStates(StatesGroup):
@@ -34,4 +39,9 @@ class EditTeamStates(StatesGroup):
 
 class DeleteTeamStates(StatesGroup):
     delete = State()
+    accept = State()
+
+
+class RemoveTeamUserStates(StatesGroup):
+    remove = State()
     accept = State()

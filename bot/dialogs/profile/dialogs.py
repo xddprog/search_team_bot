@@ -11,12 +11,13 @@ from utils.enums import Languages
 from .getters import get_user_profile, get_editable_data
 from states.profile import ProfileStates, EditProfileStates, DeleteProfileStates
 from lexicon.texts import ProfileTexts, EditProfileTexts, DeleteProfileTexts
-from lexicon.buttons import ProfileButtonsTexts, EditProfileButtonsTexts, BaseButtonsTexts, BackButtonsTexts
+from lexicon.buttons import ProfileButtonsTexts, EditProfileButtonsTexts, BaseButtonsTexts
 from .handlers import (
     go_to_edit_profile, set_editable_item,
     correct_input_handler, invalid_input_handler,
-    set_sex, set_photo, set_languages, save_editable_data, delete_profile, go_to_register, go_to_delete_profile,
-    go_to_user_teams, go_back_to_profile
+    set_sex, set_photo, set_languages, save_editable_data,
+    delete_profile, go_to_register, go_to_delete_profile,
+    go_to_user_teams,
 )
 
 main_profile_dialog = Dialog(
@@ -61,17 +62,14 @@ edit_profile_dialog = Dialog(
                 on_click=save_editable_data,
                 when='editable_data',
             ),
-            Button(
-                id='back_to_profile',
-                text=Const(BackButtonsTexts.back),
-                on_click=go_back_to_profile
-            ),
+            BaseKeyboard.back_and_done()
         ),
         state=EditProfileStates.main,
         getter=get_editable_data
     ),
     Window(
         Const(EditProfileTexts.username),
+        BaseKeyboard.back_to(EditProfileStates.main),
         TextInput(
             id='username',
             on_success=correct_input_handler,
@@ -82,6 +80,7 @@ edit_profile_dialog = Dialog(
     ),
     Window(
         Const(EditProfileTexts.age),
+        BaseKeyboard.back_to(EditProfileStates.main),
         TextInput(
             id='age',
             on_success=correct_input_handler,
@@ -93,10 +92,12 @@ edit_profile_dialog = Dialog(
     Window(
         Const(EditProfileTexts.sex),
         BaseKeyboard.sex_keyboard(on_click=set_sex),
+        BaseKeyboard.back_to(EditProfileStates.main),
         state=EditProfileStates.edit_sex
     ),
     Window(
         Const(EditProfileTexts.city),
+        BaseKeyboard.back_to(EditProfileStates.main),
         TextInput(
             id='city',
             on_success=correct_input_handler,
@@ -108,6 +109,7 @@ edit_profile_dialog = Dialog(
     Window(
         Const(EditProfileTexts.languages),
         BaseKeyboard.checkbox_keyboard(Languages, 'languages'),
+        BaseKeyboard.back_to(EditProfileStates.main),
         Button(
             id='languages',
             text=Const(BaseButtonsTexts.save),
@@ -117,6 +119,7 @@ edit_profile_dialog = Dialog(
     ),
     Window(
         Const(EditProfileTexts.user_description),
+        BaseKeyboard.back_to(EditProfileStates.main),
         TextInput(
             id='user_description',
             on_success=correct_input_handler,
@@ -127,6 +130,7 @@ edit_profile_dialog = Dialog(
     ),
     Window(
         Const(EditProfileTexts.photo),
+        BaseKeyboard.back_to(EditProfileStates.main),
         MessageInput(
             func=set_photo,
             content_types=ContentType.PHOTO
@@ -145,11 +149,7 @@ delete_profile_dialog = Dialog(
                 text=Const(BaseButtonsTexts.yes),
                 on_click=delete_profile
             ),
-            Button(
-                id='back_to_profile',
-                text=Const(BackButtonsTexts.back),
-                on_click=go_back_to_profile
-            ),
+            BaseKeyboard.back_and_done()
         ),
         state=DeleteProfileStates.delete
     ),

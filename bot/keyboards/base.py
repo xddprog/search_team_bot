@@ -1,9 +1,10 @@
 from enum import Enum
 from typing import Callable
 
+from aiogram.fsm.state import State
 from aiogram.types import BotCommand, CallbackQuery
 from aiogram_dialog import DialogManager, StartMode
-from aiogram_dialog.widgets.kbd import Row, Column, Checkbox, Button, ManagedCheckbox
+from aiogram_dialog.widgets.kbd import Row, Column, Checkbox, Button, ManagedCheckbox, SwitchTo
 from aiogram_dialog.widgets.text import Const
 
 from lexicon.buttons import MenuKeyboardTexts, BackButtonsTexts
@@ -31,7 +32,7 @@ class BaseKeyboard:
     @classmethod
     def back_and_done(cls) -> Button:
         return Button(
-            id='back_to_teams',
+            id='back_and_done',
             text=Const(BackButtonsTexts.back),
             on_click=cls._handle_back_and_done_button
         )
@@ -39,9 +40,17 @@ class BaseKeyboard:
     @classmethod
     def back(cls) -> Button:
         return Button(
-            id='back_to_teams',
+            id='back',
             text=Const(BackButtonsTexts.back),
             on_click=cls._handle_back_button
+        )
+
+    @classmethod
+    def back_to(cls, state: State) -> Button:
+        return SwitchTo(
+            id='back_to',
+            text=Const(BackButtonsTexts.back),
+            state=state
         )
 
     @staticmethod
@@ -77,9 +86,9 @@ class BaseKeyboard:
 
     @staticmethod
     async def _handle_back_button(
-            callback: CallbackQuery,
-            checkbox: ManagedCheckbox,
-            dialog_manager: DialogManager
+        callback: CallbackQuery,
+        checkbox: ManagedCheckbox,
+        dialog_manager: DialogManager
     ) -> None:
         await dialog_manager.back()
 
@@ -102,13 +111,13 @@ class BaseKeyboard:
     def sex_keyboard(on_click: Callable):
         return Row(
             Button(
-                id=str(SexTypes.MALE),
-                text=Const(text=str(SexTypes.MALE)),
+                id=SexTypes.MALE.name,
+                text=Const(text=SexTypes.MALE.name),
                 on_click=on_click
             ),
             Button(
-                id=str(SexTypes.FEMALE),
-                text=Const(text=str(SexTypes.MALE)),
+                id=SexTypes.FEMALE.name,
+                text=Const(text=SexTypes.MALE.name),
                 on_click=on_click
             )
         )

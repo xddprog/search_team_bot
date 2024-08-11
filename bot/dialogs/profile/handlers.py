@@ -121,11 +121,3 @@ async def go_to_register(
     dialog_manager: DialogManager
 ) -> None:
     await dialog_manager.start(RegisterStates.username, mode=StartMode.RESET_STACK)
-
-
-async def go_back_to_profile(
-    callback: CallbackQuery,
-    button: Button,
-    dialog_manager: DialogManager
-) -> None:
-    await dialog_manager.done()

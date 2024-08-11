@@ -44,9 +44,18 @@ class EditProfileButtonsTexts:
         self.edit_languages = 'Языки программирования'
 
 
+class EditTeamButtonsTexts:
+    def __init__(self):
+        self.edit_name = 'Имя'
+        self.edit_description = 'Описание'
+        self.edit_photo = 'Фото'
+        self.edit_languages = 'Языки программирования'
+
+
 class ViewTeamButtonsTexts:
     edit = 'Редактировать'
     remove = 'Исключить'
     add = 'Добавить'
     invite = 'Пригласить по ссылке'
     users = 'Участники'
+    delete = 'Удалить команду'

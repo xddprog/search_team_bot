@@ -16,7 +16,7 @@ class UserModel(Base):
     age: Mapped[int] = mapped_column(nullable=False)
     city: Mapped[str] = mapped_column(nullable=False)
     languages = mapped_column(ARRAY(String), nullable=False)
-    description: Mapped[str] = mapped_column(nullable=False)
+    user_description: Mapped[str] = mapped_column(nullable=False)
     photo: Mapped[str] = mapped_column(nullable=False)
     watched_users = mapped_column(ARRAY(BigInteger), nullable=True)
     watched_teams = mapped_column(ARRAY(BigInteger), nullable=True)
@@ -45,7 +45,7 @@ class TeamModel(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     name: Mapped[str]
-    description: Mapped[str]
+    team_description: Mapped[str]
     photo: Mapped[str]
     languages = mapped_column(ARRAY(String), nullable=False)
     admins = mapped_column(ARRAY(BigInteger), nullable=False)
@@ -64,6 +64,7 @@ class TeamModel(Base):
             type=ContentType.PHOTO,
             file_id=MediaId(file_id=team['photo'])
         )
+        team['users'] = [(user.id, user.username) for user in team['users']]
         return team
 
 

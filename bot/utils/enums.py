@@ -18,6 +18,6 @@ class Languages(Enum):
     C = "C"
 
 
-class SexTypes(str, Enum):
+class SexTypes(Enum):
     MALE = "Мужской"
     FEMALE = "Женский"
