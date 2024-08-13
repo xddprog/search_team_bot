@@ -59,3 +59,9 @@ class ViewTeamButtonsTexts:
     invite = 'Пригласить по ссылке'
     users = 'Участники'
     delete = 'Удалить команду'
+
+
+class SearchButtonsTexts:
+    like = '👍🏻'
+    dislike = '👎🏻'
+    skip = '➡️'

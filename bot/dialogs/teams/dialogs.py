@@ -20,8 +20,10 @@ from .handlers import (
     go_to_selected_user_team, go_to_create_team,
     invalid_input_handler, correct_input_handler,
     set_languages, set_photo, create_invite_to_team_link,
-    accept_invite_to_team, set_editable_item, save_editable_data, delete_team, go_to_delete_team, go_to_teams,
-    go_to_selected_team_user, go_to_remove_user, delete_team_user, go_to_team_info_after_remove_user
+    accept_invite_to_team, set_editable_item, save_editable_data,
+    delete_team, go_to_delete_team, go_to_teams,
+    go_to_selected_team_user, go_to_remove_user, delete_team_user,
+    go_to_team_info_after_remove_user
 )
 
 
