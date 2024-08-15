@@ -7,7 +7,7 @@ from aiogram_dialog.widgets.text import Const, Format
 
 from .getters import get_user_register_fields
 from .handlers import correct_input_handler, invalid_input_handler, set_sex, set_languages, set_photo
-from filters.register_filters import age_filter, username_filter, description_filter, city_filter
+from filters.user_profile_filters import age_filter, username_filter, description_filter, city_filter
 from keyboards.base import BaseKeyboard
 from lexicon.buttons import BaseButtonsTexts
 from lexicon.texts import StartDialogTexts as Texts

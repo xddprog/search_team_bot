@@ -21,7 +21,10 @@ async def main():
     bot_config = get_bot_config()
     db_config = get_database_config()
 
-    bot = Bot(token=bot_config.BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
+    bot = Bot(
+        token=bot_config.BOT_TOKEN,
+        default=DefaultBotProperties(parse_mode=ParseMode.HTML)
+    )
     dp = Dispatcher()
     db_connection = DatabaseConnection(config=db_config)
 
@@ -40,7 +43,8 @@ async def main():
         dialogs.accept_invite_to_team_dialog,
         dialogs.delete_team_dialog,
         dialogs.view_team_user_dialog,
-        dialogs.remove_team_user_dialog
+        dialogs.remove_team_user_dialog,
+        dialogs.search_teammate_dialog
     )
 
     dp.update.middleware(DatabaseMiddleware(db_connection=db_connection))

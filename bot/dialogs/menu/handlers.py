@@ -4,7 +4,7 @@ from aiogram_dialog.widgets.kbd import Button
 
 from database.db_main import Database
 from states.profile import ProfileStates
-from states.search import SearchTeammate, SearchTeam
+from states.search import SearchTeammateStates, SearchTeamStates
 
 
 async def go_to_profile_dialog(
@@ -21,7 +21,7 @@ async def go_to_search_teammate_dialog(
     button: Button,
     dialog_manager: DialogManager
 ) -> None:
-    await dialog_manager.start(state=SearchTeammate.main, mode=StartMode.RESET_STACK)
+    await dialog_manager.start(state=SearchTeammateStates.search, mode=StartMode.RESET_STACK)
 
 
 async def go_to_search_team_dialog(
@@ -29,4 +29,4 @@ async def go_to_search_team_dialog(
     button: Button,
     dialog_manager: DialogManager
 ) -> None:
-    await dialog_manager.start(state=SearchTeam.main, mode=StartMode.RESET_STACK)
+    await dialog_manager.start(state=SearchTeamStates.main, mode=StartMode.RESET_STACK)

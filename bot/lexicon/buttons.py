@@ -65,3 +65,4 @@ class SearchButtonsTexts:
     like = '👍🏻'
     dislike = '👎🏻'
     skip = '➡️'
+    send = 'Связаться'

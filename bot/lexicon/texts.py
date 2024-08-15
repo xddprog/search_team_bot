@@ -35,6 +35,7 @@ class MainMenuTexts:
 class ProfileTexts:
     profile = ('<b>Имя</b>: {username}\n<b>Возраст</b>: {age}\n<b>Пол</b>: {sex}\n'
                '<b>Город</b>: {city}\n<b>Описание</b>: {user_description}\n<b>Языки</b>: {languages}')
+    send_message_to_liked_user = 'Ваш профиль понравился пользователю {id}\n' + profile
 
 
 class DeleteProfileTexts:
@@ -78,4 +79,4 @@ class DeleteTeamTexts:
 class RemoveTeamUserTexts:
     remove = 'Вы уверены, что хотите исключить участника из команды?'
     accept = 'Участник был успешно исключен из команды!'
-    message_to_user_after_removev= 'Вы были исключены из команды {}\nСвязаться с создателем: '
+    message_to_user_after_remove = 'Вы были исключены из команды {}\nСвязаться с создателем: '

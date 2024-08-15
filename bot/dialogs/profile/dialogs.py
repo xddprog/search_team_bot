@@ -5,7 +5,7 @@ from aiogram_dialog.widgets.kbd import Button, Row, Column
 from aiogram_dialog.widgets.media import DynamicMedia
 from aiogram_dialog.widgets.text import Format, Const
 
-from filters.register_filters import username_filter, age_filter, city_filter, description_filter
+from filters.user_profile_filters import username_filter, age_filter, city_filter, description_filter
 from keyboards.base import BaseKeyboard
 from utils.enums import Languages
 from .getters import get_user_profile, get_editable_data

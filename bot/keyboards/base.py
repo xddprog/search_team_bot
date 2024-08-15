@@ -112,12 +112,12 @@ class BaseKeyboard:
         return Row(
             Button(
                 id=SexTypes.MALE.name,
-                text=Const(text=SexTypes.MALE.name),
+                text=Const(text=SexTypes.MALE.value),
                 on_click=on_click
             ),
             Button(
                 id=SexTypes.FEMALE.name,
-                text=Const(text=SexTypes.MALE.name),
+                text=Const(text=SexTypes.FEMALE.value),
                 on_click=on_click
             )
         )

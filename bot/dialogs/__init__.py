@@ -8,3 +8,4 @@ from dialogs.teams.dialogs import (
     remove_team_user_dialog
 )
 from dialogs.profile.dialogs import main_profile_dialog, edit_profile_dialog, delete_profile_dialog
+from dialogs.search.dialogs import search_teammate_dialog

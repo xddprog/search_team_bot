@@ -15,11 +15,11 @@ class UserModel(Base):
     sex: Mapped[str]
     age: Mapped[int] = mapped_column(nullable=False)
     city: Mapped[str] = mapped_column(nullable=False)
-    languages = mapped_column(ARRAY(String), nullable=False)
+    languages: Mapped[list] = mapped_column(ARRAY(String), nullable=False)
     user_description: Mapped[str] = mapped_column(nullable=False)
     photo: Mapped[str] = mapped_column(nullable=False)
-    watched_users = mapped_column(ARRAY(BigInteger), nullable=True)
-    watched_teams = mapped_column(ARRAY(BigInteger), nullable=True)
+    watched_users = mapped_column(ARRAY(BigInteger), default=[])
+    watched_teams = mapped_column(ARRAY(BigInteger), default=[])
 
     teams: Mapped[list['TeamModel']] = relationship(
         back_populates='users',

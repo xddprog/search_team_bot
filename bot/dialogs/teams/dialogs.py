@@ -5,7 +5,7 @@ from aiogram_dialog.widgets.kbd import Select, Button, Row, Column, SwitchTo
 from aiogram_dialog.widgets.media import DynamicMedia
 from aiogram_dialog.widgets.text import Format, Const
 
-from filters.register_filters import username_filter, description_filter
+from filters.user_profile_filters import username_filter, description_filter
 from keyboards.base import BaseKeyboard
 from lexicon.buttons import CreateEditDeleteAddButtonsTexts, BaseButtonsTexts, ViewTeamButtonsTexts, \
     EditTeamButtonsTexts, BackButtonsTexts

@@ -4,7 +4,7 @@ from lexicon.errors import RegisterDialogErrors as Errors
 
 
 def age_filter(age: str) -> int:
-    if all(ch.isdigit() for ch in age) and 3 <= int(age) <= 99:
+    if all(ch.isdigit() for ch in age) and 12 <= int(age) <= 99:
         return int(age)
     raise ValueError(Errors.invalid_age)
 

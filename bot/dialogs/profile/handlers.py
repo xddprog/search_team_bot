@@ -59,7 +59,7 @@ async def set_sex(
     button: Button,
     dialog_manager: DialogManager
 ) -> None:
-    dialog_manager.dialog_data.update({'sex': callback.data})
+    dialog_manager.dialog_data.update({'sex': button.text})
     await dialog_manager.switch_to(state=EditProfileStates.main)
 
 
