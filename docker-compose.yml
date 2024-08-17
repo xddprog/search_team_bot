@@ -1,0 +1,30 @@
+version: "3.8"
+services:
+    bot:
+        build:
+            context: .
+        container_name: "search_team_bot"
+        environment:
+            - BOT_TOKEN=6894606379:AAEwI3cQ5tZld9R5Wkmczoo3cyn0SH-HhcU
+            - DB_NAME=example
+            - DB_HOST=db
+            - DB_PORT=5432
+            - DB_USER=example
+            - DB_PASS=example
+        depends_on:
+            db:
+                condition: service_healthy
+
+    db:
+        image: postgres
+        environment:
+            - POSTGRES_DB=example
+            - POSTGRES_USER=example
+            - POSTGRES_PASSWORD=example
+        ports:
+            - "5433:5432"
+        healthcheck:
+            test: [ "CMD-SHELL", "pg_isready -U example" ]
+            interval: 5s
+            timeout: 10s
+            retries: 5

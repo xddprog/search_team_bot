@@ -16,11 +16,6 @@ class CreateEditDeleteAddButtonsTexts:
     delete = 'Удалить'
 
 
-class MenuKeyboardTexts:
-    start = '/start'
-    menu = '/menu'
-
-
 class MainMenuButtonsTexts:
     profile = 'Профиль'
     search_teammate = 'Искать напарника'
@@ -64,5 +59,4 @@ class ViewTeamButtonsTexts:
 class SearchButtonsTexts:
     like = '👍🏻'
     dislike = '👎🏻'
-    skip = '➡️'
     send = 'Связаться'

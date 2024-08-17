@@ -13,7 +13,8 @@ class DatabaseConnection:
     def __init__(self, config: DatabaseConfig):
         self.engine = create_async_engine(
             url=f'postgresql+asyncpg://{config.db_user}:{config.db_pass}'
-                f'@{config.db_host}:{config.db_port}/{config.db_name}'
+                f'@{config.db_host}:{config.db_port}/{config.db_name}',
+            pool_size=100,
         )
 
     async def _create_users(self):
@@ -52,7 +53,7 @@ class DatabaseConnection:
     async def create_tables(self):
         async with self.engine.begin() as conn:
             await conn.run_sync(Base.metadata.create_all)
-            await self._create_users()
+        await self._create_users()
 
     async def get_session(self) -> AsyncSession:
         return AsyncSession(self.engine)

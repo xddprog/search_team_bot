@@ -59,11 +59,3 @@ async def dislike_found_user(
         user_id=callback.from_user.id,
         new_watched_user=disliked_user
     )
-
-
-async def skip_found_user(
-    callback: CallbackQuery,
-    button: Button,
-    dialog_manager: DialogManager
-) -> None:
-    pass

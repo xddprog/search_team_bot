@@ -7,20 +7,12 @@ from aiogram_dialog import DialogManager, StartMode
 from aiogram_dialog.widgets.kbd import Row, Column, Checkbox, Button, ManagedCheckbox, SwitchTo
 from aiogram_dialog.widgets.text import Const
 
-from lexicon.buttons import MenuKeyboardTexts, BackButtonsTexts
+from lexicon.buttons import BackButtonsTexts
 from states.menu import MenuStates
 from utils.enums import SexTypes
 
 
 class BaseKeyboard:
-    @classmethod
-    def set_meny_keyboard(cls):
-        commands = [
-            BotCommand(command=item.name, description=item.value)
-            for item in MenuKeyboardTexts
-        ]
-        return commands
-
     @classmethod
     def back_to_menu(cls) -> Button:
         return Button(

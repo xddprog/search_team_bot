@@ -5,7 +5,7 @@ from aiogram_dialog.widgets.text import Format, Const
 
 from keyboards.base import BaseKeyboard
 from .getters import get_found_user_info
-from .handlers import like_found_user, dislike_found_user, skip_found_user
+from .handlers import like_found_user, dislike_found_user
 from lexicon.buttons import SearchButtonsTexts
 from lexicon.texts import ProfileTexts
 from states.search import SearchTeammateStates
@@ -26,15 +26,17 @@ search_teammate_dialog = Dialog(
                     text=Const(SearchButtonsTexts.dislike),
                     on_click=dislike_found_user
                 ),
-                Button(
-                    id='skip_found_user',
-                    text=Const(SearchButtonsTexts.skip),
-                    on_click=skip_found_user
-                ),
                 BaseKeyboard.back_to_menu()
             ),
         ),
         state=SearchTeammateStates.search,
         getter=get_found_user_info
+    )
+)
+
+
+search_team_dialog = Dialog(
+    Window(
+        state=SearchTeammateStates.search
     )
 )
