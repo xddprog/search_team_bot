@@ -53,7 +53,7 @@ async def go_to_search_team_dialog(
     )
 
     if not found_team:
-        await dialog_manager.start(state=SearchTeammateStates.users_ended)
+        await dialog_manager.start(state=SearchTeamStates.teams_ended)
     else:
         await database.users.update_user_watched_teams(
             user_id=callback.from_user.id,

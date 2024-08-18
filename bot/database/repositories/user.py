@@ -32,7 +32,7 @@ class UserRepository(SqlAlchemyRepository):
 
     async def update_user_watched_teams(self, user_id: int, new_watched_team: int) -> dict:
         user: UserModel = await self.session.get(self.model, user_id)
-        user.watched_teams = [*user.watched_users, new_watched_team]
+        user.watched_teams = [*user.watched_teams, new_watched_team]
 
         await self.session.commit()
         await self.session.refresh(user)

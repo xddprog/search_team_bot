@@ -34,9 +34,18 @@ class TeamRepository(SqlAlchemyRepository):
 
     async def get_teams_for_search_dialog(self, this_user: UserModel) -> TeamModel:
         query = select(self.model).filter(
-            # not_(self.model.users.any(UserModel.id == this_user.id)),
+            not_(self.model.users.any(UserModel.id == this_user.id)),
             OVERLAP(array(this_user.languages), self.model.languages)
         )
 
         result = await self.session.execute(query)
         return result.scalars().first()
+
+    async def update_team_users(self, team_id: int, new_user: UserModel):
+        team = await self.session.get(self.model, team_id)
+        team_name = team.name
+
+        team.users.append(new_user)
+
+        await self.session.commit()
+        return team_name

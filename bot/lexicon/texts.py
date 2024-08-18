@@ -83,10 +83,11 @@ class RemoveTeamUserTexts:
 
 class SearchTexts:
     send_message_to_liked_user = (
-        'Ваш профиль понравился пользователю {id}\n' + ProfileTexts.profile
+        'Ваш профиль понравился пользователю\n' + ProfileTexts.profile
     )
     send_message_to_liked_team = (
-        'Пользователь {id} хочет вступить в команду:\n' + ProfileTexts.profile
+        'Пользователь хочет вступить в команду:{name}\n' + ProfileTexts.profile
     )
     users_ended = 'Вы просмотрели всех пользователей!'
     teams_ended = 'Вы просмторели все команды!'
+    accept_user_to_team = 'Вы были приняты в команду {}'

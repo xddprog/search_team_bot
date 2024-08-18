@@ -11,11 +11,14 @@ async def send_message_to_team_admins(
     this_user: dict,
     user_who_liked_url: str,
     dialog_manager: DialogManager,
+    team_id: int,
+    team_name: str
 ) -> None:
     for admin_id in admins:
         await dialog_manager.event.bot.send_photo(
             chat_id=admin_id,
-            caption=SearchTexts.send_message_to_liked_user.format(
+            caption=SearchTexts.send_message_to_liked_team.format(
+                name=team_name,
                 **this_user
             ),
             photo=this_user['photo'].file_id.file_id,
@@ -28,7 +31,7 @@ async def send_message_to_team_admins(
                         ),
                         InlineKeyboardButton(
                             text=SearchButtonsTexts.accept_to_team,
-                            callback_data=this_user['id'],
+                            callback_data=f'accept_user_to_found_team_{this_user['id']}_{team_id}',
                         )
                     ],
                     *await BaseKeyboard.back_to_menu().render_keyboard(
