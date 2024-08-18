@@ -10,6 +10,7 @@ from dialogs.router import router
 from states.menu import MenuStates
 from states.register import RegisterStates
 from states.teams import AcceptInviteToTeamStates
+from utils.enums import SexTypes
 
 
 async def correct_input_handler(
@@ -38,7 +39,8 @@ async def set_sex(
     button: Button,
     dialog_manager: DialogManager
 ) -> None:
-    dialog_manager.dialog_data.update({'sex': button.text})
+    sex: SexTypes.FEMALE | SexTypes.MALE = eval(callback.data)
+    dialog_manager.dialog_data.update({'sex': sex.value})
     await dialog_manager.next()
 
 

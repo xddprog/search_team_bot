@@ -12,7 +12,7 @@ from lexicon.buttons import CreateEditDeleteAddButtonsTexts, BaseButtonsTexts, V
 from utils.enums import Languages
 from .getters import get_user_teams, get_team_register_fields, get_team_info, get_invite_to_team_link, \
     get_team_info_from_invite_link, get_editable_data, get_team_users, get_selected_user_info
-from lexicon.texts import TeamsTexts, BaseInputTexts, AcceptToInviteTeamDialogs, EditTeamTexts, DeleteTeamTexts, \
+from lexicon.texts import TeamTexts, BaseInputTexts, AcceptToInviteTeamDialogs, EditTeamTexts, DeleteTeamTexts, \
     ProfileTexts, RemoveTeamUserTexts
 from states.teams import UserTeamsStates, CreateTeamStates, ViewTeamStates, AcceptInviteToTeamStates, EditTeamStates, \
     DeleteTeamStates, ViewTeamUserStates, RemoveTeamUserStates
@@ -29,7 +29,7 @@ from .handlers import (
 
 user_teams_dialog = Dialog(
     Window(
-        Format(TeamsTexts.teams),
+        Format(TeamTexts.teams),
         Column(
             Select(
                 Format('{item[0]}'),
@@ -98,7 +98,7 @@ create_team_dialog = Dialog(
         state=CreateTeamStates.photo
     ),
     Window(
-        Format(TeamsTexts.success),
+        Format(TeamTexts.success),
         Button(
             id='go_to_teams',
             text=Const(BackButtonsTexts.back),
@@ -113,7 +113,7 @@ create_team_dialog = Dialog(
 
 view_team_dialog = Dialog(
     Window(
-        Format(TeamsTexts.team),
+        Format(TeamTexts.team),
         DynamicMedia("photo"),
         Button(
             id='leave',
@@ -146,13 +146,13 @@ view_team_dialog = Dialog(
         getter=get_team_info
     ),
     Window(
-        Format(TeamsTexts.invite_link),
+        Format(TeamTexts.invite_link),
         BaseKeyboard.back(),
         state=ViewTeamStates.invite,
         getter=get_invite_to_team_link
     ),
     Window(
-        Format(TeamsTexts.users),
+        Format(TeamTexts.users),
         Column(
             Select(
                 Format('{item[1]}'),

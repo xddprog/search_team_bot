@@ -35,7 +35,6 @@ class MainMenuTexts:
 class ProfileTexts:
     profile = ('<b>Имя</b>: {username}\n<b>Возраст</b>: {age}\n<b>Пол</b>: {sex}\n'
                '<b>Город</b>: {city}\n<b>Описание</b>: {user_description}\n<b>Языки</b>: {languages}')
-    send_message_to_liked_user = 'Ваш профиль понравился пользователю {id}\n' + profile
 
 
 class DeleteProfileTexts:
@@ -45,8 +44,8 @@ class DeleteProfileTexts:
 
 class EditProfileTexts(BaseInputTexts):
     main = ('Выберите пункт профиля, который хотите отредактировать.'
-            ' Вы можете отредактировать сразу несколько пунктов.\n\n'
-            'Измененные пункты:\n {editable_data}')
+            'Вы можете отредактировать сразу несколько пунктов.\n\n'
+            'Измененные пункты:\n{editable_data}')
 
 
 class EditTeamTexts(BaseInputTexts):
@@ -55,7 +54,7 @@ class EditTeamTexts(BaseInputTexts):
             'Измененные пункты:\n {editable_data}')
 
 
-class TeamsTexts:
+class TeamTexts:
     team = '<b>Название команды</b>: {name}\n<b>Описание</b>: {team_description}\n<b>Языки</b>: {languages}'
     teams = '<b>Количество команд, в которых вы находитесь</b>: {teams_numbers}\n Максимальное число команд - 10'
     success = ('Вы успешно создали команду!\n<b>Название команды</b>: {name}\n'
@@ -80,3 +79,14 @@ class RemoveTeamUserTexts:
     remove = 'Вы уверены, что хотите исключить участника из команды?'
     accept = 'Участник был успешно исключен из команды!'
     message_to_user_after_remove = 'Вы были исключены из команды {}\nСвязаться с создателем: '
+
+
+class SearchTexts:
+    send_message_to_liked_user = (
+        'Ваш профиль понравился пользователю {id}\n' + ProfileTexts.profile
+    )
+    send_message_to_liked_team = (
+        'Пользователь {id} хочет вступить в команду:\n' + ProfileTexts.profile
+    )
+    users_ended = 'Вы просмотрели всех пользователей!'
+    teams_ended = 'Вы просмторели все команды!'

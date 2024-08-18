@@ -7,6 +7,7 @@ from database.db_main import Database
 from states.profile import EditProfileStates, ProfileStates, DeleteProfileStates
 from states.register import RegisterStates
 from states.teams import UserTeamsStates
+from utils.enums import SexTypes
 
 
 async def go_to_edit_profile(
@@ -59,7 +60,8 @@ async def set_sex(
     button: Button,
     dialog_manager: DialogManager
 ) -> None:
-    dialog_manager.dialog_data.update({'sex': button.text})
+    sex: SexTypes.FEMALE | SexTypes.MALE = eval(callback.data)
+    dialog_manager.dialog_data.update({'sex': sex.value})
     await dialog_manager.switch_to(state=EditProfileStates.main)
 
 

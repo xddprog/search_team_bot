@@ -3,8 +3,9 @@ from aiogram.fsm.state import StatesGroup, State
 
 class SearchTeammateStates(StatesGroup):
     search = State()
-    users_not_found = State()
+    users_ended = State()
 
 
 class SearchTeamStates(StatesGroup):
-    main = State()
+    search = State()
+    teams_ended = State()

@@ -60,3 +60,4 @@ class SearchButtonsTexts:
     like = '👍🏻'
     dislike = '👎🏻'
     send = 'Связаться'
+    accept_to_team = 'Принять в команду'

@@ -103,12 +103,12 @@ class BaseKeyboard:
     def sex_keyboard(on_click: Callable):
         return Row(
             Button(
-                id=SexTypes.MALE.name,
+                id=str(SexTypes.MALE),
                 text=Const(text=SexTypes.MALE.value),
                 on_click=on_click
             ),
             Button(
-                id=SexTypes.FEMALE.name,
+                id=str(SexTypes.FEMALE.name),
                 text=Const(text=SexTypes.FEMALE.value),
                 on_click=on_click
             )

@@ -1,7 +1,3 @@
-from dataclasses import dataclass
-from enum import Enum
-
-
 class RegisterDialogErrors:
     invalid_username = 'Вы ввели некорректное имя!'
     user_exist = 'У вас уже есть аккаунт! Вы можете удалить его и создать новый или отредактировать'

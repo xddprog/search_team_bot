@@ -30,7 +30,6 @@ class UserModel(Base):
 
     async def to_dict(self):
         user = {key: value for key, value in self.__dict__.items()}
-
         user['languages'] = ', '.join(user['languages'])
         user['photo'] = MediaAttachment(
             type=ContentType.PHOTO,

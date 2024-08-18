@@ -44,7 +44,8 @@ async def main():
         dialogs.delete_team_dialog,
         dialogs.view_team_user_dialog,
         dialogs.remove_team_user_dialog,
-        dialogs.search_teammate_dialog
+        dialogs.search_teammate_dialog,
+        dialogs.search_team_dialog
     )
     dp.update.middleware(DatabaseMiddleware(db_connection=db_connection))
 
