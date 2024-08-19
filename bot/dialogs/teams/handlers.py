@@ -10,28 +10,41 @@ from states.teams import CreateTeamStates, ViewTeamStates, AcceptInviteToTeamSta
     UserTeamsStates, ViewTeamUserStates, RemoveTeamUserStates
 
 
-async def correct_input_handler(
-        message: Message,
-        widget: ManagedTextInput,
-        dialog_manager: DialogManager,
-        text: str
+async def edit_team_correct_input_handler(
+    message: Message,
+    widget: ManagedTextInput,
+    dialog_manager: DialogManager,
+    text: str
 ) -> None:
     field_name = widget.widget.widget_id
     dialog_manager.dialog_data.update({field_name: text})
-    await dialog_manager.next()
+    print(dialog_manager.dialog_data)
+    await dialog_manager.switch_to(state=EditTeamStates.main)
 
 
 async def invalid_input_handler(
-        message: Message,
-        widget: ManagedTextInput,
-        dialog_manager: DialogManager,
-        error: ValueError
+    message: Message,
+    widget: ManagedTextInput,
+    dialog_manager: DialogManager,
+    error: ValueError
 ) -> None:
     dialog_manager.show_mode = ShowMode.NO_UPDATE
     await message.answer(text=str(error))
 
 
-async def set_languages(
+async def create_team_correct_input_handler(
+    message: Message,
+    widget: ManagedTextInput,
+    dialog_manager: DialogManager,
+    text: str
+) -> None:
+    field_name = widget.widget.widget_id
+    dialog_manager.dialog_data.update({field_name: text})
+    print(dialog_manager.dialog_data)
+    await dialog_manager.next()
+
+
+async def create_team_set_languages(
         callback: CallbackQuery,
         button: Button,
         dialog_manager: DialogManager
@@ -39,6 +52,16 @@ async def set_languages(
     field_name = button.widget_id
     dialog_manager.dialog_data.update({'languages': dialog_manager.dialog_data.get('languages')})
     await dialog_manager.next()
+
+
+async def edit_team_set_languages(
+        callback: CallbackQuery,
+        button: Button,
+        dialog_manager: DialogManager
+) -> None:
+    field_name = button.widget_id
+    dialog_manager.dialog_data.update({'languages': dialog_manager.dialog_data.get('languages')})
+    await dialog_manager.switch_to(state=EditTeamStates.main)
 
 
 async def set_photo(
@@ -124,7 +147,10 @@ async def go_to_teams(
     button: Button,
     dialog_manager: DialogManager
 ) -> None:
-    await dialog_manager.start(state=UserTeamsStates.teams, mode=StartMode.RESET_STACK)
+    await dialog_manager.start(
+        state=UserTeamsStates.teams,
+        mode=StartMode.RESET_STACK
+    )
 
 
 async def go_to_team_info_after_remove_user(
@@ -149,6 +175,17 @@ async def go_to_remove_user(
             'selected_user_team': dialog_manager.start_data.get('selected_user_team'),
             'selected_team_user': dialog_manager.start_data.get('selected_team_user')
         }
+    )
+
+
+async def go_to_edit_team(
+    callback: CallbackQuery,
+    button: Button,
+    dialog_manager: DialogManager
+) -> None:
+    await dialog_manager.start(
+        state=EditTeamStates.main,
+        data={'selected_user_team': dialog_manager.start_data.get('selected_user_team')}
     )
 
 
@@ -200,7 +237,7 @@ async def save_editable_data(
     database: Database = dialog_manager.middleware_data.get('database')
 
     await database.teams.update_item(
-        dialog_manager.dialog_data.pop('selected_user_team')[-1],
+        dialog_manager.start_data.get('selected_user_team')[-1],
         dialog_manager.dialog_data
     )
 

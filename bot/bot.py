@@ -40,6 +40,7 @@ async def main():
         dialogs.user_teams_dialog,
         dialogs.create_team_dialog,
         dialogs.view_team_dialog,
+        dialogs.edit_team_dialog,
         dialogs.accept_invite_to_team_dialog,
         dialogs.delete_team_dialog,
         dialogs.view_team_user_dialog,

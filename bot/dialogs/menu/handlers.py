@@ -48,19 +48,19 @@ async def go_to_search_team_dialog(
 ) -> None:
     database: Database = dialog_manager.middleware_data.get('database')
 
-    found_team = await database.teams.get_teams_for_search_dialog(
-        this_user=await database.users.get_item(callback.from_user.id)
-    )
+    found_team = await database.teams.get_team_for_search_dialog(
+        this_user=await database.users.get_item(callback.from_user.id))
 
     if not found_team:
         await dialog_manager.start(state=SearchTeamStates.teams_ended)
     else:
+        found_team = await found_team.to_dict()
         await database.users.update_user_watched_teams(
             user_id=callback.from_user.id,
-            new_watched_team=found_team.id
+            new_watched_team=found_team['id']
         )
         await dialog_manager.start(
             state=SearchTeamStates.search,
             mode=StartMode.RESET_STACK,
-            data={'found_team': await found_team.to_dict()}
+            data={'found_team': found_team}
         )

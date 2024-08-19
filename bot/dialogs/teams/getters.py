@@ -50,7 +50,6 @@ async def get_team_info(
 
     team['user_is_admin'] = event_from_user.id in team['admins']
     team['user_is_not_admin'] = event_from_user.id not in team['admins']
-    team['users'] = team['users'].remove(event_from_user.id)
 
     dialog_manager.dialog_data['users'] = team['users']
     dialog_manager.dialog_data['admins'] = team['admins']

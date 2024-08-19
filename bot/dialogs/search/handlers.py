@@ -85,7 +85,7 @@ async def like_found_team(
         team_name=liked_team['name']
     )
 
-    next_team = await database.teams.get_teams_for_search_dialog(
+    next_team = await database.teams.get_team_for_search_dialog(
         this_user=await database.users.get_item(callback.from_user.id)
     )
     if next_team is None:
@@ -107,9 +107,8 @@ async def dislike_found_team(
         new_watched_team=disliked_team['id']
     )
 
-    next_team = await database.teams.get_teams_for_search_dialog(
-        this_user=await database.users.get_item(callback.from_user.id)
-    )
+    next_team = await database.teams.get_team_for_search_dialog(
+        this_user=await database.users.get_item(callback.from_user.id))
     if next_team is None:
         return await dialog_manager.switch_to(state=SearchTeamStates.teams_ended)
     else:

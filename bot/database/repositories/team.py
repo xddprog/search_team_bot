@@ -32,12 +32,12 @@ class TeamRepository(SqlAlchemyRepository):
 
         await self.session.commit()
 
-    async def get_teams_for_search_dialog(self, this_user: UserModel) -> TeamModel:
+    async def get_team_for_search_dialog(self, this_user: UserModel) -> TeamModel:
         query = select(self.model).filter(
+            self.model.id.not_in(this_user.watched_teams),
             not_(self.model.users.any(UserModel.id == this_user.id)),
             OVERLAP(array(this_user.languages), self.model.languages)
-        )
-
+        ).limit(1)
         result = await self.session.execute(query)
         return result.scalars().first()
 

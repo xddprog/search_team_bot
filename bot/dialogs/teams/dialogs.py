@@ -18,12 +18,12 @@ from states.teams import UserTeamsStates, CreateTeamStates, ViewTeamStates, Acce
     DeleteTeamStates, ViewTeamUserStates, RemoveTeamUserStates
 from .handlers import (
     go_to_selected_user_team, go_to_create_team,
-    invalid_input_handler, correct_input_handler,
-    set_languages, set_photo, create_invite_to_team_link,
+    invalid_input_handler, edit_team_correct_input_handler,
+    create_team_set_languages, create_invite_to_team_link,
     accept_invite_to_team, set_editable_item, save_editable_data,
-    delete_team, go_to_delete_team, go_to_teams,
+    delete_team, go_to_delete_team, go_to_teams, create_team_correct_input_handler,
     go_to_selected_team_user, go_to_remove_user, delete_team_user,
-    go_to_team_info_after_remove_user
+    go_to_team_info_after_remove_user, go_to_edit_team, set_edit_photo, set_photo, edit_team_set_languages
 )
 
 
@@ -60,7 +60,7 @@ create_team_dialog = Dialog(
         BaseKeyboard.back_and_done(),
         TextInput(
             id='name',
-            on_success=correct_input_handler,
+            on_success=create_team_correct_input_handler,
             on_error=invalid_input_handler,
             type_factory=username_filter
         ),
@@ -71,7 +71,7 @@ create_team_dialog = Dialog(
         BaseKeyboard.back_and_done(),
         TextInput(
             id='team_description',
-            on_success=correct_input_handler,
+            on_success=create_team_correct_input_handler,
             on_error=invalid_input_handler,
             type_factory=description_filter
         ),
@@ -84,7 +84,7 @@ create_team_dialog = Dialog(
         Button(
             id='languages',
             text=Const(BaseButtonsTexts.save),
-            on_click=set_languages
+            on_click=create_team_set_languages
         ),
         state=CreateTeamStates.languages,
     ),
@@ -123,7 +123,8 @@ view_team_dialog = Dialog(
         Button(
             id='edit_team',
             text=Const(ViewTeamButtonsTexts.edit),
-            when='user_is_admin'
+            when='user_is_admin',
+            on_click=go_to_edit_team
         ),
         Button(
             id='delete_team',
@@ -258,33 +259,33 @@ edit_team_dialog = Dialog(
         getter=get_editable_data
     ),
     Window(
-        Const(EditTeamStates.edit_name),
+        Const(EditTeamTexts.name),
         BaseKeyboard.back_to(EditTeamStates.main),
         TextInput(
-            id='username',
-            on_success=correct_input_handler,
+            id='name',
+            on_success=edit_team_correct_input_handler,
             on_error=invalid_input_handler,
             type_factory=username_filter
         ),
         state=EditTeamStates.edit_name
     ),
     Window(
-        Const(EditTeamStates.edit_languages),
+        Const(EditTeamTexts.languages),
         BaseKeyboard.checkbox_keyboard(Languages, 'languages'),
         BaseKeyboard.back_to(EditTeamStates.main),
         Button(
             id='languages',
             text=Const(BaseButtonsTexts.save),
-            on_click=set_languages
+            on_click=edit_team_set_languages
         ),
         state=EditTeamStates.edit_languages,
     ),
     Window(
-        Const(EditTeamStates.edit_description),
+        Const(EditTeamTexts.team_description),
         BaseKeyboard.back_to(EditTeamStates.main),
         TextInput(
             id='description',
-            on_success=correct_input_handler,
+            on_success=edit_team_correct_input_handler,
             on_error=invalid_input_handler,
             type_factory=username_filter
         ),
@@ -294,7 +295,7 @@ edit_team_dialog = Dialog(
         Const(EditTeamTexts.photo),
         BaseKeyboard.back_to(EditTeamStates.main),
         MessageInput(
-            func=set_photo,
+            func=set_edit_photo,
             content_types=ContentType.PHOTO
         ),
         state=EditTeamStates.edit_photo
@@ -316,7 +317,7 @@ delete_team_dialog = Dialog(
         state=DeleteTeamStates.delete
     ),
     Window(
-        Const(DeleteTeamStates.accept),
+        Const(DeleteTeamTexts.accept),
         Button(
             id='delete_successfully',
             text=Const(BackButtonsTexts.back),

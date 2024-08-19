@@ -56,7 +56,7 @@ class TeamModel(Base):
         lazy='joined'
     )
 
-    async def to_dict(self):
+    async def to_dict(self) -> dict:
         team = {key: value for key, value in self.__dict__.items()}
         team['languages'] = ', '.join(team['languages'])
         team['photo'] = MediaAttachment(
